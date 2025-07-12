@@ -1,26 +1,412 @@
 @import "tailwindcss";
 
+/* =====================
+   THEME PALETTES SYSTEM
+   ===================== */
+
+/* Nebula Bloom (Default) */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --palette: nebula;
+  --bg: 0 0% 100%;
+  --surface: 0 0% 98%;
+  --text-primary: 220 15% 15%;
+  --text-secondary: 220 10% 40%;
+  --accent-a: 300 100% 60%; /* Fuchsia */
+  --accent-b: 160 84% 39%;  /* Aurora Green */
+  --accent-faded: 300 30% 95%;
+  --border: 220 13% 91%;
+  --elevate: 0 0% 0% / 0.08;
+}
+.dark {
+  --bg: 220 25% 8%;
+  --surface: 220 25% 12%;
+  --text-primary: 0 0% 98%;
+  --text-secondary: 220 9% 75%;
+  --accent-a: 300 100% 70%;
+  --accent-b: 160 84% 50%;
+  --accent-faded: 300 30% 20%;
+  --border: 220 25% 20%;
+  --elevate: 0 0% 0% / 0.25;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Galactic Aurora Palette */
+.palette-galactic {
+  --palette: galactic;
+  --bg: 222 100% 98%;
+  --surface: 222 100% 94%;
+  --text-primary: 240 10% 10%;
+  --text-secondary: 240 8% 45%;
+  --accent-a: 200 100% 60%; /* Teal */
+  --accent-b: 270 100% 70%; /* Purple */
+  --accent-faded: 200 80% 95%;
+  --border: 222 20% 85%;
+  --elevate: 0 0% 0% / 0.10;
+}
+.palette-galactic.dark {
+  --bg: 240 21% 12%;
+  --surface: 240 21% 18%;
+  --text-primary: 0 0% 98%;
+  --text-secondary: 240 8% 70%;
+  --accent-a: 200 100% 70%;
+  --accent-b: 270 100% 80%;
+  --accent-faded: 200 80% 20%;
+  --border: 240 21% 30%;
+  --elevate: 0 0% 0% / 0.30;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Cyberpunk Night Palette */
+.palette-cyberpunk {
+  --palette: cyberpunk;
+  --bg: 240 100% 98%;
+  --surface: 240 100% 94%;
+  --text-primary: 260 10% 10%;
+  --text-secondary: 260 8% 45%;
+  --accent-a: 320 100% 60%; /* Neon Pink */
+  --accent-b: 180 100% 50%; /* Neon Cyan */
+  --accent-faded: 320 80% 95%;
+  --border: 240 20% 85%;
+  --elevate: 0 0% 0% / 0.10;
+}
+.palette-cyberpunk.dark {
+  --bg: 260 60% 8%;
+  --surface: 260 60% 14%;
+  --text-primary: 0 0% 98%;
+  --text-secondary: 260 8% 70%;
+  --accent-a: 320 100% 70%;
+  --accent-b: 180 100% 60%;
+  --accent-faded: 320 80% 20%;
+  --border: 260 60% 30%;
+  --elevate: 0 0% 0% / 0.30;
+}
+
+/* Tailwind theme variables */
+@theme {
+  --color-bg: hsl(var(--bg));
+  --color-surface: hsl(var(--surface));
+  --color-text-primary: hsl(var(--text-primary));
+  --color-text-secondary: hsl(var(--text-secondary));
+  --color-accent-a: hsl(var(--accent-a));
+  --color-accent-b: hsl(var(--accent-b));
+  --color-accent-faded: hsl(var(--accent-faded));
+  --color-border: hsl(var(--border));
+  --color-elevate: hsl(var(--elevate));
+}
+
+/* Base styles with smooth transitions */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: hsl(var(--bg));
+  color: hsl(var(--text-primary));
+  font-family: var(--font-sans), system-ui, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDelay {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDelay2 {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDelay3 {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceX {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+}
+
+@keyframes bounceDelay {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Robot-specific animations */
+@keyframes robotDance {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-5px) rotate(5deg); }
+  50% { transform: translateY(-10px) rotate(0deg); }
+  75% { transform: translateY(-5px) rotate(-5deg); }
+}
+
+@keyframes robotWave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(15deg); }
+  50% { transform: rotate(30deg); }
+  75% { transform: rotate(15deg); }
+}
+
+@keyframes robotJuggle {
+  0%, 100% { transform: translateY(0) scale(1); }
+  33% { transform: translateY(-8px) scale(1.1); }
+  66% { transform: translateY(-4px) scale(0.9); }
+}
+
+@keyframes techFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(180deg); }
+}
+
+@keyframes footprintGlow {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2); }
+}
+
+/* Animation classes */
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-delay {
+  animation: fadeInDelay 0.8s ease-out 0.5s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-delay-2 {
+  animation: fadeInDelay2 0.8s ease-out 1s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-delay-3 {
+  animation: fadeInDelay3 0.8s ease-out 2s forwards;
+  opacity: 0;
+}
+
+.animate-bounce-x {
+  animation: bounceX 1.5s ease-in-out infinite;
+}
+
+.animate-bounce-delay {
+  animation: bounceDelay 2s ease-in-out infinite;
+}
+
+/* Robot animation classes */
+.animate-robot-dance {
+  animation: robotDance 2s ease-in-out infinite;
+}
+
+.animate-robot-wave {
+  animation: robotWave 1.5s ease-in-out infinite;
+}
+
+.animate-robot-juggle {
+  animation: robotJuggle 3s ease-in-out infinite;
+}
+
+.animate-tech-float {
+  animation: techFloat 4s ease-in-out infinite;
+}
+
+.animate-footprint-glow {
+  animation: footprintGlow 2s ease-in-out infinite;
+}
+
+/* Floating Orbs */
+.floating-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(32px);
+  opacity: 0.18;
+  pointer-events: none;
+  animation: float-orb 12s ease-in-out infinite alternate;
+}
+.floating-orb.orb-1 { left: 10vw; top: 20vh; width: 180px; height: 180px; background: hsl(var(--accent-a)); animation-delay: 0s; }
+.floating-orb.orb-2 { right: 8vw; top: 30vh; width: 120px; height: 120px; background: hsl(var(--accent-b)); animation-delay: 2s; }
+.floating-orb.orb-3 { left: 50vw; bottom: 10vh; width: 140px; height: 140px; background: hsl(var(--accent-faded)); animation-delay: 4s; }
+
+@keyframes float-orb {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-40px) scale(1.08); }
+}
+
+/* Fun Fact Popup */
+.fun-fact-popup {
+  position: fixed;
+  bottom: 120px;
+  left: 24px;
+  right: auto;
+  z-index: 60;
+  background: #fff;
+  color: hsl(var(--text-primary));
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18);
+  padding: 1.25rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  max-width: 320px;
+  border: 2.5px solid hsl(var(--accent-a));
+  animation: fun-fact-in 0.7s cubic-bezier(.4,2,.6,1) both;
+}
+@media (max-width: 640px) {
+  .fun-fact-popup {
+    left: 8px;
+    bottom: 100px;
+    max-width: 90vw;
+    padding: 1rem 1rem;
+  }
+}
+.dark .fun-fact-popup {
+  background: #181820;
+  color: hsl(var(--text-primary));
+  border: 2.5px solid hsl(var(--accent-b));
+}
+@keyframes fun-fact-in {
+  0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Custom scrollbar for dark mode */
+.dark ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: hsl(var(--surface));
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--accent-a));
+}
+
+/* Robot helper tooltip */
+.robot-helper-tooltip {
+  position: absolute;
+  background: hsl(var(--surface));
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  color: hsl(var(--text-primary));
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 100;
+  max-width: 200px;
+  animation: tooltip-in 0.3s ease-out;
+}
+
+@keyframes tooltip-in {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Enhanced hover effects for robot elements */
+.robot-hover {
+  transition: all 0.3s ease;
+}
+
+.robot-hover:hover {
+  transform: scale(1.05) rotate(2deg);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+
+/* Tech icon floating animation */
+.tech-icon-float {
+  animation: techFloat 6s ease-in-out infinite;
+}
+
+/* Robot footprint trail */
+.robot-footprint {
+  animation: footprintGlow 3s ease-in-out infinite;
+}
+
+/* Interactive robot elements */
+.robot-interactive {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.robot-interactive:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+
+/* Robot mascot variants */
+.robot-mascot-default {
+  animation: robotDance 4s ease-in-out infinite;
+}
+
+.robot-mascot-reading {
+  animation: robotWave 3s ease-in-out infinite;
+}
+
+.robot-mascot-working {
+  animation: robotJuggle 5s ease-in-out infinite;
+}
+
+.robot-mascot-presenting {
+  animation: robotWave 2s ease-in-out infinite;
+}
+
+.robot-mascot-juggling {
+  animation: robotJuggle 4s ease-in-out infinite;
+}
+
+.robot-mascot-graduation {
+  animation: robotDance 3s ease-in-out infinite;
+}
+
+.robot-mascot-waving {
+  animation: robotWave 1.5s ease-in-out infinite;
+}
+
+.robot-mascot-helper {
+  animation: robotDance 2s ease-in-out infinite;
 }
