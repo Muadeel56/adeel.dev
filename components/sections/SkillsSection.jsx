@@ -1,24 +1,47 @@
 'use client';
+import { useState, useEffect } from "react";
 import RobotMascot from "../common/RobotMascot";
 
 const SKILLS = [
-  { name: "React", type: "Framework" },
-  { name: "Next.js", type: "Framework" },
-  { name: "TypeScript", type: "Language" },
-  { name: "JavaScript", type: "Language" },
-  { name: "Django", type: "Framework" },
-  { name: "Tailwind CSS", type: "CSS" },
-  { name: "REST APIs", type: "API" },
-  { name: "Git", type: "Tool" },
-  { name: "Figma", type: "Tool" },
-  { name: "Framer Motion", type: "Animation" },
-  { name: "MUI", type: "UI" },
-  { name: "Vite", type: "Tool" },
-  { name: "PostgreSQL", type: "Database" },
-  { name: "Python", type: "Language" },
+  { name: "React", type: "Framework", level: 90, icon: "⚛️" },
+  { name: "Next.js", type: "Framework", level: 85, icon: "⚡" },
+  { name: "TypeScript", type: "Language", level: 80, icon: "📘" },
+  { name: "JavaScript", type: "Language", level: 95, icon: "🟨" },
+  { name: "Django", type: "Framework", level: 75, icon: "🐍" },
+  { name: "Tailwind CSS", type: "CSS", level: 90, icon: "🎨" },
+  { name: "REST APIs", type: "API", level: 85, icon: "🔗" },
+  { name: "Git", type: "Tool", level: 80, icon: "📝" },
+  { name: "Figma", type: "Tool", level: 70, icon: "🎨" },
+  { name: "Framer Motion", type: "Animation", level: 75, icon: "✨" },
+  { name: "MUI", type: "UI", level: 80, icon: "🧩" },
+  { name: "Vite", type: "Tool", level: 85, icon: "⚡" },
+  { name: "PostgreSQL", type: "Database", level: 75, icon: "🐘" },
+  { name: "Python", type: "Language", level: 80, icon: "🐍" },
+];
+
+const SKILL_CATEGORIES = [
+  { name: "Frontend", skills: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Framer Motion", "MUI"] },
+  { name: "Backend", skills: ["Django", "Python", "PostgreSQL", "REST APIs"] },
+  { name: "Tools", skills: ["Git", "Vite", "Figma"] },
 ];
 
 export default function SkillsSection() {
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [hoveredSkill, setHoveredSkill] = useState(null);
+  const [animateChart, setAnimateChart] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setAnimateChart(true), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const filteredSkills = selectedCategory === "All" 
+    ? SKILLS 
+    : SKILLS.filter(skill => {
+        const category = SKILL_CATEGORIES.find(cat => cat.name === selectedCategory);
+        return category?.skills.includes(skill.name);
+      });
+
   return (
     <section id="skills" className="relative py-20 px-6 bg-bg flex flex-col items-center justify-center">
       {/* Robot mascot */}
@@ -33,45 +56,104 @@ export default function SkillsSection() {
       <div className="absolute left-10 bottom-40 text-xl animate-bounce-delay opacity-30">🔧</div>
       <div className="absolute right-15 top-60 text-lg animate-bounce opacity-30">🐍</div>
       
-      <div className="max-w-4xl mx-auto w-full">
+      <div className="max-w-6xl mx-auto w-full">
         <h2 className="text-3xl md:text-4xl font-bold mb-10 text-accent-a text-center animate-fade-in">Skills & Tools</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 animate-fade-in-delay">
-          {SKILLS.map((skill, index) => (
-            <div
-              key={skill.name}
-              className="p-4 rounded-xl bg-surface border border-border shadow hover:scale-105 hover:border-accent-a transition-all duration-300 flex flex-col items-center justify-center cursor-pointer group relative"
+        
+        {/* Category Filter */}
+        <div className="flex flex-wrap justify-center gap-3 mb-8 animate-fade-in-delay">
+          {["All", ...SKILL_CATEGORIES.map(cat => cat.name)].map((category, index) => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={`px-4 py-2 rounded-full font-semibold text-sm border-2 transition-all ${
+                selectedCategory === category 
+                  ? 'bg-accent-a text-white border-accent-a' 
+                  : 'bg-accent-faded text-accent-a border-accent-faded hover:bg-accent-a hover:text-white hover:border-accent-a'
+              }`}
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              {/* Robot footprint decoration */}
-              <div className="absolute -top-1 -right-1 text-xs opacity-20 animate-pulse">🤖</div>
-              
-              <span className="text-lg font-bold text-accent-a group-hover:text-accent-b transition-colors">{skill.name}</span>
-              <span className="text-xs text-text-secondary mt-1 group-hover:text-accent-a transition-colors">{skill.type}</span>
-              
-              {/* Animated skill level indicator */}
-              <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex gap-1">
-                {[...Array(3)].map((_, i) => (
-                  <div 
-                    key={i} 
-                    className="w-1 h-1 rounded-full bg-accent-a opacity-60 animate-pulse" 
-                    style={{ animationDelay: `${i * 200}ms` }}
-                  />
-                ))}
-              </div>
-            </div>
+              {category}
+            </button>
           ))}
         </div>
+
+        {/* Animated Skills Chart */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+          {/* Skills Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 animate-fade-in-delay">
+            {filteredSkills.map((skill, index) => (
+              <div
+                key={skill.name}
+                className="p-4 rounded-xl bg-surface border border-border shadow hover:scale-105 hover:border-accent-a transition-all duration-300 flex flex-col items-center justify-center cursor-pointer group relative"
+                style={{ animationDelay: `${index * 100}ms` }}
+                onMouseEnter={() => setHoveredSkill(skill.name)}
+                onMouseLeave={() => setHoveredSkill(null)}
+              >
+                {/* Robot footprint decoration */}
+                <div className="absolute -top-1 -right-1 text-xs opacity-20 animate-pulse">🤖</div>
+                
+                <span className="text-2xl mb-2">{skill.icon}</span>
+                <span className="text-lg font-bold text-accent-a group-hover:text-accent-b transition-colors text-center">{skill.name}</span>
+                <span className="text-xs text-text-secondary mt-1 group-hover:text-accent-a transition-colors">{skill.type}</span>
+                
+                {/* Animated skill level indicator */}
+                <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <div 
+                      key={i} 
+                      className={`w-1 h-1 rounded-full transition-all duration-300 ${
+                        i < Math.floor(skill.level / 20) 
+                          ? 'bg-accent-a opacity-100' 
+                          : 'bg-accent-faded opacity-30'
+                      }`}
+                      style={{ animationDelay: `${i * 100}ms` }}
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Animated Skills Chart */}
+          <div className="bg-surface border border-border rounded-2xl p-6 shadow-lg animate-fade-in-delay-2">
+            <h3 className="text-xl font-bold text-accent-a mb-6 text-center">Skill Proficiency</h3>
+            <div className="space-y-4">
+              {filteredSkills.slice(0, 8).map((skill, index) => (
+                <div key={skill.name} className="relative">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm font-semibold text-text-primary">{skill.name}</span>
+                    <span className="text-xs text-text-secondary">{skill.level}%</span>
+                  </div>
+                  <div className="w-full bg-accent-faded rounded-full h-2">
+                    <div 
+                      className={`h-2 rounded-full transition-all duration-1000 ease-out ${
+                        animateChart ? 'bg-gradient-to-r from-accent-a to-accent-b' : 'bg-transparent'
+                      }`}
+                      style={{ 
+                        width: animateChart ? `${skill.level}%` : '0%',
+                        animationDelay: `${index * 200}ms`
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
         
-        {/* Animated skill categories */}
-        <div className="mt-8 flex justify-center gap-4 animate-fade-in-delay-2">
-          {["Frontend", "Backend", "Tools", "Design"].map((category, index) => (
-            <span 
-              key={category}
-              className="px-3 py-1 rounded-full bg-accent-faded text-accent-a text-sm font-semibold hover:bg-accent-a hover:text-white transition-all cursor-pointer"
-              style={{ animationDelay: `${index * 200}ms` }}
-            >
-              {category}
-            </span>
+        {/* Skill Statistics */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 animate-fade-in-delay-3">
+          {[
+            { label: "Years Experience", value: "3+", icon: "📅" },
+            { label: "Projects Completed", value: "15+", icon: "🚀" },
+            { label: "Technologies", value: "14", icon: "⚡" },
+            { label: "Happy Clients", value: "8+", icon: "😊" }
+          ].map((stat, index) => (
+            <div key={stat.label} className="text-center p-4 rounded-xl bg-surface border border-border hover:border-accent-a transition-all">
+              <div className="text-2xl mb-2">{stat.icon}</div>
+              <div className="text-2xl font-bold text-accent-a">{stat.value}</div>
+              <div className="text-sm text-text-secondary">{stat.label}</div>
+            </div>
           ))}
         </div>
       </div>

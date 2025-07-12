@@ -43,43 +43,133 @@ export default function NavBar() {
     }
   };
 
+  // Keyboard navigation
+  const handleKeyDown = (e, href) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleNav(href);
+    }
+  };
+
   return (
-    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-40 w-[95vw] max-w-3xl rounded-2xl bg-surface/80 border border-border shadow-lg backdrop-blur-md px-4 py-2 flex items-center justify-between">
-      <div className="font-bold text-lg tracking-widest text-accent-a cursor-pointer select-none" onClick={() => handleNav("#home")}>Adeel.dev</div>
-      {/* Desktop nav */}
-      <ul className="hidden md:flex gap-2">
-        {NAV_LINKS.map(link => (
-          <li key={link.href}>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-surface/80 backdrop-blur-md border-b border-border">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <a 
+              href="#home" 
+              className="text-xl font-bold text-accent-a hover:text-accent-b transition-colors"
+              onClick={() => handleNav("#home")}
+              onKeyDown={(e) => handleKeyDown(e, "#home")}
+              tabIndex={0}
+              aria-label="Go to home page"
+            >
+              Adeel.dev
+            </a>
+          </div>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:block">
+            <div className="ml-10 flex items-baseline space-x-4">
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNav(link.href);
+                  }}
+                  onKeyDown={(e) => handleKeyDown(e, link.href)}
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-all relative group ${
+                    active === link.href
+                      ? 'text-accent-a bg-accent-faded'
+                      : 'text-text-primary hover:text-accent-a hover:bg-accent-faded'
+                  }`}
+                  tabIndex={0}
+                  aria-current={active === link.href ? 'page' : undefined}
+                  aria-label={`Navigate to ${link.label} section`}
+                >
+                  {link.label}
+                  {/* Active indicator */}
+                  {active === link.href && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent-a rounded-full" />
+                  )}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden">
             <button
-              onClick={() => handleNav(link.href)}
-              className={`px-3 py-1 rounded-lg font-medium transition-all text-sm hover:bg-accent-faded hover:text-accent-a focus:outline-none focus:ring-2 focus:ring-accent-a ${active === link.href ? "bg-accent-faded text-accent-a" : "text-text-primary"}`}
+              onClick={() => setOpen(!open)}
+              className="inline-flex items-center justify-center p-2 rounded-md text-text-primary hover:text-accent-a hover:bg-accent-faded focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent-a transition-all"
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              aria-label={open ? "Close navigation menu" : "Open navigation menu"}
+            >
+              <span className="sr-only">Open main menu</span>
+              {/* Icon when menu is closed */}
+              <svg
+                className={`${open ? 'hidden' : 'block'} h-6 w-6`}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              {/* Icon when menu is open */}
+              <svg
+                className={`${open ? 'block' : 'hidden'} h-6 w-6`}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      <div 
+        className={`${open ? 'block' : 'hidden'} md:hidden bg-surface border-t border-border`}
+        id="mobile-menu"
+        role="menu"
+        aria-orientation="vertical"
+        aria-labelledby="mobile-menu-button"
+      >
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={(e) => {
+                e.preventDefault();
+                handleNav(link.href);
+              }}
+              onKeyDown={(e) => handleKeyDown(e, link.href)}
+              className={`block px-3 py-2 rounded-md text-base font-medium transition-all ${
+                active === link.href
+                  ? 'text-accent-a bg-accent-faded'
+                  : 'text-text-primary hover:text-accent-a hover:bg-accent-faded'
+              }`}
+              role="menuitem"
+              tabIndex={0}
+              aria-current={active === link.href ? 'page' : undefined}
+              aria-label={`Navigate to ${link.label} section`}
             >
               {link.label}
-            </button>
-          </li>
-        ))}
-      </ul>
-      {/* Mobile hamburger */}
-      <button className="md:hidden p-2 rounded-lg hover:bg-accent-faded" onClick={() => setOpen(o => !o)} aria-label="Open menu">
-        <span className="block w-6 h-0.5 bg-text-primary mb-1 rounded-full"></span>
-        <span className="block w-6 h-0.5 bg-text-primary mb-1 rounded-full"></span>
-        <span className="block w-6 h-0.5 bg-text-primary rounded-full"></span>
-      </button>
-      {/* Mobile menu */}
-      {open && (
-        <ul className="absolute top-14 right-4 bg-surface border border-border rounded-xl shadow-lg flex flex-col gap-2 p-4 animate-fade-in min-w-[150px]">
-          {NAV_LINKS.map(link => (
-            <li key={link.href}>
-              <button
-                onClick={() => handleNav(link.href)}
-                className={`w-full text-left px-3 py-2 rounded-lg font-medium transition-all text-sm hover:bg-accent-faded hover:text-accent-a focus:outline-none focus:ring-2 focus:ring-accent-a ${active === link.href ? "bg-accent-faded text-accent-a" : "text-text-primary"}`}
-              >
-                {link.label}
-              </button>
-            </li>
+            </a>
           ))}
-        </ul>
-      )}
+        </div>
+      </div>
     </nav>
   );
 } 

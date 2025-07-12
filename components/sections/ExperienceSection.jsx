@@ -1,76 +1,153 @@
 'use client';
+import { useState, useEffect } from "react";
 import RobotMascot from "../common/RobotMascot";
 
 const EXPERIENCES = [
   {
     company: "QTO House",
-    location: "Lahore",
     role: "Frontend Developer",
-    period: "Sep 2024 – Present",
-    logo: "🧑‍💻",
+    period: "2024 - Present",
+    logo: "🏢",
+    description: "Leading frontend development for multiple projects including attendance portal, company websites, and career platforms. Specializing in React, Next.js, and modern web technologies.",
     achievements: [
-      "Built internal portals that replaced legacy tools.",
-      "Worked closely with backend to integrate APIs.",
-      "Focused on performance, UI polish, and business needs."
-    ]
+      "Built full-featured attendance portal replacing Odoo system",
+      "Developed responsive company websites with modern UI/UX",
+      "Implemented career portal with job listings and admin filters",
+      "Optimized performance and user experience across all projects"
+    ],
+    tech: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Django", "PostgreSQL"],
+    duration: "1+ years"
   },
   {
     company: "Pukhtoon Solutions Hub",
-    location: "Lahore",
     role: "Full Stack Developer",
-    period: "Aug 2024",
-    logo: "💼",
+    period: "2023 - 2024",
+    logo: "🚀",
+    description: "Developed web and mobile applications including geofencing systems and company websites. Worked with React Native, Django, and modern web technologies.",
     achievements: [
-      "Led the development of the company's official website and an attendance management system.",
-      "Created user-friendly interfaces and optimized system performance.",
-      "Engaged in full-stack development, both frontend and backend."
-    ]
+      "Built GeoGuard geofencing system with real-time tracking",
+      "Developed official company website for PSH",
+      "Implemented REST APIs and database optimization",
+      "Collaborated with cross-functional teams"
+    ],
+    tech: ["React", "React Native", "Django", "PostgreSQL", "REST APIs", "Tailwind CSS"],
+    duration: "1 year"
   }
 ];
 
 export default function ExperienceSection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [animateTimeline, setAnimateTimeline] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setAnimateTimeline(true), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section id="experience" className="relative py-20 px-6 bg-bg flex flex-col items-center justify-center">
       {/* Robot mascot */}
       <div className="absolute left-8 top-8 opacity-60 animate-bounce-delay">
         <RobotMascot variant="working" size="sm" />
       </div>
+      
+      {/* Floating work icons */}
+      <div className="absolute right-10 top-20 text-2xl animate-bounce opacity-30">💼</div>
+      <div className="absolute left-20 top-40 text-xl animate-bounce-delay opacity-30">⚡</div>
+      <div className="absolute right-20 bottom-20 text-lg animate-bounce opacity-30">🎯</div>
+      
       <h2 className="text-3xl md:text-4xl font-bold mb-10 text-accent-a text-center animate-fade-in">Experience</h2>
-      <div className="relative max-w-3xl mx-auto w-full animate-fade-in-delay-2">
+      <div className="relative max-w-4xl mx-auto w-full animate-fade-in-delay-2">
         <div className="border-l-4 border-accent-faded pl-6">
           {EXPERIENCES.map((exp, i) => (
-            <div key={exp.company} className="relative mb-12 group">
+            <div key={exp.company} className="relative mb-16 group">
               {/* Timeline dot */}
-              <div className="absolute -left-8 top-2 w-6 h-6 rounded-full bg-accent-a border-4 border-bg flex items-center justify-center text-xl shadow animate-bounce-delay">
+              <div className="absolute -left-8 top-2 w-6 h-6 rounded-full bg-accent-a border-4 border-bg flex items-center justify-center text-xl shadow animate-bounce-delay z-10">
                 {exp.logo}
               </div>
-              {/* Timeline line */}
+              
+              {/* Timeline line with animation */}
               {i < EXPERIENCES.length - 1 && (
-                <div className="absolute -left-5 top-8 w-2 h-full bg-accent-faded z-0" style={{ minHeight: '40px' }} />
-              )}
-              {/* Experience card */}
-              <div className="bg-surface border border-border rounded-2xl shadow-lg p-6 md:p-8 flex flex-col gap-2 group-hover:shadow-2xl transition-all relative animate-fade-in-delay">
-                <div className="flex flex-col md:flex-row md:items-center gap-2 mb-2">
-                  <span className="text-lg font-bold text-accent-a">{exp.company}</span>
-                  <span className="text-xs text-text-secondary">{exp.location}</span>
-                  <span className="text-xs text-text-secondary">{exp.period}</span>
+                <div className="absolute -left-5 top-8 w-2 h-full bg-accent-faded z-0">
+                  <div 
+                    className={`h-full bg-gradient-to-b from-accent-a to-accent-b transition-all duration-1000 ${
+                      animateTimeline ? 'w-full' : 'w-0'
+                    }`}
+                    style={{ animationDelay: `${i * 500}ms` }}
+                  />
                 </div>
-                <div className="text-base text-text-primary font-semibold mb-1">{exp.role}</div>
-                <ul className="list-disc list-inside text-text-secondary space-y-1">
-                  {exp.achievements.map((a, j) => (
-                    <li key={j} className="group-hover:text-accent-a transition-colors">{a}</li>
+              )}
+              
+              {/* Experience card */}
+              <div 
+                className={`bg-bg border border-border rounded-2xl shadow p-6 flex flex-col gap-4 group-hover:shadow-2xl transition-all relative animate-fade-in-delay ${
+                  activeIndex === i ? 'border-accent-a shadow-lg' : ''
+                }`}
+                onClick={() => setActiveIndex(i)}
+                style={{ animationDelay: `${i * 200}ms` }}
+              >
+                {/* Header */}
+                <div className="flex flex-col md:flex-row md:items-center gap-2 mb-2">
+                  <span className="text-xl font-bold text-accent-a">{exp.company}</span>
+                  <span className="text-lg text-text-primary">{exp.role}</span>
+                  <span className="text-sm text-text-secondary font-semibold">{exp.period}</span>
+                  <span className="text-xs text-accent-b bg-accent-faded px-2 py-1 rounded-full">{exp.duration}</span>
+                </div>
+                
+                {/* Description */}
+                <p className="text-base text-text-secondary leading-relaxed">{exp.description}</p>
+                
+                {/* Achievements */}
+                <div className="space-y-2">
+                  <h4 className="text-sm font-semibold text-accent-a">Key Achievements:</h4>
+                  <ul className="space-y-1">
+                    {exp.achievements.map((achievement, index) => (
+                      <li key={index} className="text-sm text-text-primary flex items-start gap-2">
+                        <span className="text-accent-b mt-1">•</span>
+                        {achievement}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                {/* Tech stack */}
+                <div className="flex flex-wrap gap-2">
+                  {exp.tech.map((tech, index) => (
+                    <span 
+                      key={tech} 
+                      className="px-2 py-1 rounded bg-accent-faded text-accent-a text-xs font-semibold hover:bg-accent-a hover:text-white transition-all"
+                      style={{ animationDelay: `${index * 100}ms` }}
+                    >
+                      {tech}
+                    </span>
                   ))}
-                </ul>
+                </div>
+                
+                {/* Progress indicator */}
+                <div className="absolute bottom-2 right-2 flex gap-1">
+                  <div className="w-2 h-2 rounded-full bg-accent-a animate-pulse" />
+                  <div className="w-2 h-2 rounded-full bg-accent-b animate-pulse" style={{ animationDelay: "200ms" }} />
+                  <div className="w-2 h-2 rounded-full bg-accent-a animate-pulse" style={{ animationDelay: "400ms" }} />
+                </div>
               </div>
             </div>
           ))}
         </div>
-      </div>
-      {/* SVG Wave Divider */}
-      <div className="absolute left-0 right-0 -bottom-1 pointer-events-none select-none">
-        <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-16">
-          <path fill="currentColor" className="text-surface dark:text-surface" d="M0,32L60,37.3C120,43,240,53,360,58.7C480,64,600,64,720,58.7C840,53,960,43,1080,42.7C1200,43,1320,53,1380,58.7L1440,64L1440,80L1380,80C1320,80,1200,80,1080,80C960,80,840,80,720,80C600,80,480,80,360,80C240,80,120,80,60,80L0,80Z" />
-        </svg>
+        
+        {/* Experience summary */}
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in-delay-3">
+          {[
+            { label: "Years Experience", value: "2+", icon: "📅" },
+            { label: "Companies Worked", value: "2", icon: "🏢" },
+            { label: "Projects Delivered", value: "6+", icon: "🚀" }
+          ].map((stat, index) => (
+            <div key={stat.label} className="text-center p-4 rounded-xl bg-surface border border-border hover:border-accent-a transition-all">
+              <div className="text-2xl mb-2">{stat.icon}</div>
+              <div className="text-2xl font-bold text-accent-a">{stat.value}</div>
+              <div className="text-sm text-text-secondary">{stat.label}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
