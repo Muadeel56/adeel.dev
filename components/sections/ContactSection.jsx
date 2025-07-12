@@ -1,6 +1,7 @@
 'use client';
 import { useState } from "react";
 import RobotMascot from "../common/RobotMascot";
+import emailjs from "emailjs-com";
 
 const SOCIALS = [
   { name: "Email", icon: "✉️", link: "mailto:muadeel69@gmail.com" },
@@ -11,11 +12,28 @@ const SOCIALS = [
 
 export default function ContactSection() {
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
   // Placeholder for EmailJS integration
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSent(true);
-    setTimeout(() => setSent(false), 3000);
+    setLoading(true);
+    emailjs.sendForm(
+      "service_69ixmcm", // Service ID
+      "template_inx8gr7", // Template ID
+      e.target,
+      "t2pAyxEVGNczCdhyS" // Public Key
+    ).then(
+      () => {
+        setSent(true);
+        setLoading(false);
+        setTimeout(() => setSent(false), 3000);
+      },
+      (error) => {
+        alert("Failed to send message: " + error.text);
+        setLoading(false);
+      }
+    );
+    e.target.reset();
   };
   return (
     <section id="contact" className="relative py-20 px-6 bg-bg flex flex-col items-center justify-center">
@@ -39,17 +57,15 @@ export default function ContactSection() {
         <form onSubmit={handleSubmit} className="bg-surface border border-border rounded-2xl shadow-lg p-6 flex flex-col gap-4 items-center animate-fade-in-delay-2 relative group">
           {/* Robot footprint decoration */}
           <div className="absolute -top-2 -left-2 text-sm opacity-20 animate-pulse">🤖</div>
-          
-          <input required name="name" placeholder="Your Name" className="w-full px-4 py-2 rounded-lg border border-border bg-bg text-text-primary focus:ring-2 focus:ring-accent-a outline-none group-hover:border-accent-a transition-all" />
-          <input required name="email" type="email" placeholder="Your Email" className="w-full px-4 py-2 rounded-lg border border-border bg-bg text-text-primary focus:ring-2 focus:ring-accent-a outline-none group-hover:border-accent-a transition-all" />
+          <input required name="from_name" placeholder="Your Name" className="w-full px-4 py-2 rounded-lg border border-border bg-bg text-text-primary focus:ring-2 focus:ring-accent-a outline-none group-hover:border-accent-a transition-all" />
+          <input required name="from_email" type="email" placeholder="Your Email" className="w-full px-4 py-2 rounded-lg border border-border bg-bg text-text-primary focus:ring-2 focus:ring-accent-a outline-none group-hover:border-accent-a transition-all" />
           <textarea required name="message" placeholder="Your Message" rows={4} className="w-full px-4 py-2 rounded-lg border border-border bg-bg text-text-primary focus:ring-2 focus:ring-accent-a outline-none group-hover:border-accent-a transition-all" />
-          <button type="submit" className="px-6 py-3 rounded-xl bg-gradient-to-r from-accent-a to-accent-b text-white font-semibold shadow hover:scale-105 transition-all relative overflow-hidden group">
-            <span className="relative z-10">{sent ? "Message Sent!" : "Send Message"}</span>
+          <button type="submit" className="px-6 py-3 rounded-xl bg-gradient-to-r from-accent-a to-accent-b text-white font-semibold shadow hover:scale-105 transition-all relative overflow-hidden group" disabled={loading}>
+            <span className="relative z-10">{loading ? "Sending..." : sent ? "Message Sent!" : "Send Message"}</span>
             {sent && (
               <div className="absolute inset-0 bg-accent-b animate-pulse" />
             )}
           </button>
-          
           {/* Animated form status indicator */}
           <div className="absolute top-2 right-2 flex gap-1">
             <div className="w-2 h-2 rounded-full bg-accent-a animate-pulse" />
