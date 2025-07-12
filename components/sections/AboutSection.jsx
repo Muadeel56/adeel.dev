@@ -1,5 +1,38 @@
 'use client';
 import RobotMascot from "../common/RobotMascot";
+import { 
+  FaReact, 
+  FaJs, 
+  FaPython, 
+  FaGitAlt, 
+  FaFigma 
+} from 'react-icons/fa';
+import { 
+  SiNextdotjs, 
+  SiTailwindcss, 
+  SiDjango, 
+  SiFramer, 
+  SiVite 
+} from 'react-icons/si';
+import { BiCodeAlt } from 'react-icons/bi';
+
+// Tech icon mapping
+const getTechIcon = (tech) => {
+  const iconMap = {
+    "React": <FaReact className="text-blue-500" />,
+    "Next.js": <SiNextdotjs className="text-black dark:text-white" />,
+    "JavaScript": <FaJs className="text-yellow-400" />,
+    "Django": <SiDjango className="text-green-700" />,
+    "Tailwind CSS": <SiTailwindcss className="text-cyan-500" />,
+    "REST APIs": <BiCodeAlt className="text-purple-500" />,
+    "Git": <FaGitAlt className="text-orange-600" />,
+    "Figma": <FaFigma className="text-pink-500" />,
+    "Framer Motion": <SiFramer className="text-blue-600" />,
+    "MUI": <span className="text-blue-600">🎨</span>,
+    "Vite": <SiVite className="text-purple-500" />
+  };
+  return iconMap[tech] || <span className="text-accent-a">⚡</span>;
+};
 
 export default function AboutSection() {
   return (
@@ -28,6 +61,7 @@ export default function AboutSection() {
               <span
                 className="px-4 py-2 rounded-full bg-accent-faded text-accent-a font-semibold text-sm shadow hover:scale-105 hover:bg-accent-a hover:text-white transition-all cursor-pointer select-none flex items-center gap-2"
               >
+                <span className="text-sm">{getTechIcon(skill)}</span>
                 {skill}
                 {index % 3 === 0 && <span className="text-xs animate-pulse">🤖</span>}
               </span>

@@ -1,6 +1,20 @@
 'use client';
 import { useState } from "react";
 import RobotMascot from "../common/RobotMascot";
+import { 
+  FaReact, 
+  FaJs, 
+  FaPython, 
+  FaGitAlt 
+} from 'react-icons/fa';
+import { 
+  SiNextdotjs, 
+  SiTailwindcss, 
+  SiDjango, 
+  SiPostgresql, 
+  SiFramer, 
+  SiVite
+} from 'react-icons/si';
 
 const PROJECTS = [
   {
@@ -67,6 +81,25 @@ const PROJECTS = [
 
 const ALL_TECHS = Array.from(new Set(PROJECTS.flatMap(p => p.tech))).sort();
 
+// Tech icon mapping
+const getTechIcon = (tech) => {
+  const iconMap = {
+    "React": <FaReact className="text-blue-500" />,
+    "Next.js": <SiNextdotjs className="text-black dark:text-white" />,
+    "JavaScript": <FaJs className="text-yellow-400" />,
+    "Django": <SiDjango className="text-green-700" />,
+    "Tailwind": <SiTailwindcss className="text-cyan-500" />,
+    "MUI": <span className="text-blue-600">🎨</span>,
+    "PostgreSQL": <SiPostgresql className="text-blue-600" />,
+    "Framer Motion": <SiFramer className="text-blue-600" />,
+    "React Native": <FaReact className="text-blue-500" />,
+    "S3": <span className="text-orange-500">☁️</span>,
+    "Git": <FaGitAlt className="text-orange-600" />,
+    "Python": <FaPython className="text-blue-600" />
+  };
+  return iconMap[tech] || <span className="text-accent-a">⚡</span>;
+};
+
 export default function ProjectsSection() {
   const [filter, setFilter] = useState('All');
   const filtered = filter === 'All' ? PROJECTS : PROJECTS.filter(p => p.tech.includes(filter));
@@ -97,8 +130,9 @@ export default function ProjectsSection() {
             <button
               key={tech}
               onClick={() => setFilter(tech)}
-              className={`px-4 py-2 rounded-full font-semibold text-sm border-2 transition-all ${filter === tech ? 'bg-accent-a text-white border-accent-a' : 'bg-accent-faded text-accent-a border-accent-faded hover:bg-accent-a hover:text-white hover:border-accent-a'}`}
+              className={`px-4 py-2 rounded-full font-semibold text-sm border-2 transition-all flex items-center gap-2 ${filter === tech ? 'bg-accent-a text-white border-accent-a' : 'bg-accent-faded text-accent-a border-accent-faded hover:bg-accent-a hover:text-white hover:border-accent-a'}`}
             >
+              <span className="text-sm">{getTechIcon(tech)}</span>
               {tech}
             </button>
           ))}
@@ -147,9 +181,10 @@ export default function ProjectsSection() {
                   {proj.tech.map((t, index) => (
                     <span 
                       key={t} 
-                      className="px-2 py-1 rounded bg-accent-faded text-accent-a text-xs font-semibold hover:bg-accent-a hover:text-white transition-all cursor-pointer"
+                      className="px-2 py-1 rounded bg-accent-faded text-accent-a text-xs font-semibold hover:bg-accent-a hover:text-white transition-all cursor-pointer flex items-center gap-1"
                       style={{ animationDelay: `${index * 100}ms` }}
                     >
+                      <span className="text-xs">{getTechIcon(t)}</span>
                       {t}
                     </span>
                   ))}

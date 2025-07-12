@@ -1,21 +1,37 @@
 'use client';
 import { useState, useEffect } from "react";
 import RobotMascot from "../common/RobotMascot";
+import { 
+  FaReact, 
+  FaJs, 
+  FaPython, 
+  FaGitAlt, 
+  FaFigma 
+} from 'react-icons/fa';
+import { 
+  SiNextdotjs, 
+  SiTailwindcss, 
+  SiDjango, 
+  SiPostgresql, 
+  SiFramer, 
+  SiVite 
+} from 'react-icons/si';
+import { BiCodeAlt } from 'react-icons/bi';
 
 const SKILLS = [
-  { name: "React", type: "Framework", level: 85, icon: "⚛️" },
-  { name: "Next.js", type: "Framework", level: 80, icon: "⚡" },
-  { name: "JavaScript", type: "Language", level: 90, icon: "🟨" },
-  { name: "Django", type: "Framework", level: 70, icon: "🐍" },
-  { name: "Tailwind CSS", type: "CSS", level: 85, icon: "🎨" },
-  { name: "REST APIs", type: "API", level: 75, icon: "🔗" },
-  { name: "Git", type: "Tool", level: 80, icon: "📝" },
-  { name: "Figma", type: "Tool", level: 65, icon: "🎨" },
-  { name: "Framer Motion", type: "Animation", level: 70, icon: "✨" },
-  { name: "MUI", type: "UI", level: 75, icon: "🧩" },
-  { name: "Vite", type: "Tool", level: 80, icon: "⚡" },
-  { name: "PostgreSQL", type: "Database", level: 70, icon: "🐘" },
-  { name: "Python", type: "Language", level: 75, icon: "🐍" },
+  { name: "React", type: "Framework", level: 85, icon: <FaReact className="text-blue-500" /> },
+  { name: "Next.js", type: "Framework", level: 80, icon: <SiNextdotjs className="text-black dark:text-white" /> },
+  { name: "JavaScript", type: "Language", level: 90, icon: <FaJs className="text-yellow-400" /> },
+  { name: "Django", type: "Framework", level: 70, icon: <SiDjango className="text-green-700" /> },
+  { name: "Tailwind CSS", type: "CSS", level: 85, icon: <SiTailwindcss className="text-cyan-500" /> },
+  { name: "REST APIs", type: "API", level: 75, icon: <BiCodeAlt className="text-purple-500" /> },
+  { name: "Git", type: "Tool", level: 80, icon: <FaGitAlt className="text-orange-600" /> },
+  { name: "Figma", type: "Tool", level: 65, icon: <FaFigma className="text-pink-500" /> },
+  { name: "Framer Motion", type: "Animation", level: 70, icon: <SiFramer className="text-blue-600" /> },
+  { name: "MUI", type: "UI", level: 75, icon: <span className="text-blue-600">🎨</span> },
+  { name: "Vite", type: "Tool", level: 80, icon: <SiVite className="text-purple-500" /> },
+  { name: "PostgreSQL", type: "Database", level: 70, icon: <SiPostgresql className="text-blue-600" /> },
+  { name: "Python", type: "Language", level: 75, icon: <FaPython className="text-blue-600" /> },
 ];
 
 const SKILL_CATEGORIES = [
@@ -91,7 +107,9 @@ export default function SkillsSection() {
                 {/* Robot footprint decoration */}
                 <div className="absolute -top-1 -right-1 text-xs opacity-20 animate-pulse">🤖</div>
                 
-                <span className="text-2xl mb-2">{skill.icon}</span>
+                <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">
+                  {skill.icon}
+                </div>
                 <span className="text-lg font-bold text-accent-a group-hover:text-accent-b transition-colors text-center">{skill.name}</span>
                 <span className="text-xs text-text-secondary mt-1 group-hover:text-accent-a transition-colors">{skill.type}</span>
                 
@@ -120,7 +138,10 @@ export default function SkillsSection() {
               {filteredSkills.slice(0, 8).map((skill, index) => (
                 <div key={skill.name} className="relative">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-semibold text-text-primary">{skill.name}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg">{skill.icon}</span>
+                      <span className="text-sm font-semibold text-text-primary">{skill.name}</span>
+                    </div>
                     <span className="text-xs text-text-secondary">{skill.level}%</span>
                   </div>
                   <div className="w-full bg-accent-faded rounded-full h-2">

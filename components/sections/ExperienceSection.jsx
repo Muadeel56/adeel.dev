@@ -1,6 +1,18 @@
 'use client';
 import { useState, useEffect } from "react";
 import RobotMascot from "../common/RobotMascot";
+import { 
+  FaReact, 
+  FaJs, 
+  FaPython, 
+  FaGitAlt 
+} from 'react-icons/fa';
+import { 
+  SiNextdotjs, 
+  SiTailwindcss, 
+  SiDjango, 
+  SiPostgresql 
+} from 'react-icons/si';
 
 const EXPERIENCES = [
   {
@@ -34,6 +46,21 @@ const EXPERIENCES = [
     duration: "1 month"
   }
 ];
+
+// Tech icon mapping
+const getTechIcon = (tech) => {
+  const iconMap = {
+    "React": <FaReact className="text-blue-500" />,
+    "Next.js": <SiNextdotjs className="text-black dark:text-white" />,
+    "JavaScript": <FaJs className="text-yellow-400" />,
+    "Django": <SiDjango className="text-green-700" />,
+    "Tailwind CSS": <SiTailwindcss className="text-cyan-500" />,
+    "PostgreSQL": <SiPostgresql className="text-blue-600" />,
+    "Git": <FaGitAlt className="text-orange-600" />,
+    "Python": <FaPython className="text-blue-600" />
+  };
+  return iconMap[tech] || <span className="text-accent-a">⚡</span>;
+};
 
 export default function ExperienceSection() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -115,9 +142,10 @@ export default function ExperienceSection() {
                   {exp.tech.map((tech, index) => (
                     <span 
                       key={tech} 
-                      className="px-2 py-1 rounded bg-accent-faded text-accent-a text-xs font-semibold hover:bg-accent-a hover:text-white transition-all"
+                      className="px-2 py-1 rounded bg-accent-faded text-accent-a text-xs font-semibold hover:bg-accent-a hover:text-white transition-all flex items-center gap-1"
                       style={{ animationDelay: `${index * 100}ms` }}
                     >
+                      <span className="text-xs">{getTechIcon(tech)}</span>
                       {tech}
                     </span>
                   ))}
