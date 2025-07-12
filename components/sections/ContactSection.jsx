@@ -57,6 +57,14 @@ export default function ContactSection() {
             <div className="w-2 h-2 rounded-full bg-accent-a animate-pulse" style={{ animationDelay: "400ms" }} />
           </div>
         </form>
+        {/* Download vCard button */}
+        <a
+          href="/Muhammad_Adeel.vcf"
+          download
+          className="mt-6 inline-block px-6 py-3 rounded-xl bg-gradient-to-r from-accent-b to-accent-a text-white font-semibold shadow hover:scale-105 transition-all"
+        >
+          Download vCard
+        </a>
         <div className="flex flex-wrap justify-center gap-4 mt-8 animate-fade-in-delay-3">
           {SOCIALS.map((s, index) => (
             <a 

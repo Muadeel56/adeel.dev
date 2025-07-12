@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Muhammad Adeel
+N:Adeel;Muhammad;;;
+EMAIL;TYPE=INTERNET:muadeel69@gmail.com
+TEL;TYPE=CELL:+92-300-0000000
+URL:https://adeel.dev
+TITLE:Full Stack Developer
+ORG:Personal Portfolio
+ADR;TYPE=HOME:;;Jaffarabad, Chakwal, Pakistan;;;;
+END:VCARD 
