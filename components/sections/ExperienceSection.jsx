@@ -6,7 +6,7 @@ const EXPERIENCES = [
   {
     company: "QTO House",
     role: "Frontend Developer",
-    period: "2024 - Present",
+    period: "Sep 2024 - Present",
     logo: "🏢",
     description: "Leading frontend development for multiple projects including attendance portal, company websites, and career platforms. Specializing in React, Next.js, and modern web technologies.",
     achievements: [
@@ -15,23 +15,23 @@ const EXPERIENCES = [
       "Implemented career portal with job listings and admin filters",
       "Optimized performance and user experience across all projects"
     ],
-    tech: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Django", "PostgreSQL"],
-    duration: "1+ years"
+    tech: ["React", "Next.js", "JavaScript", "Tailwind CSS", "Django", "PostgreSQL"],
+    duration: "3+ months"
   },
   {
     company: "Pukhtoon Solutions Hub",
     role: "Full Stack Developer",
-    period: "2023 - 2024",
+    period: "Aug 2024",
     logo: "🚀",
-    description: "Developed web and mobile applications including geofencing systems and company websites. Worked with React Native, Django, and modern web technologies.",
+    description: "Developed company website and worked on web applications. Gained experience with React, Django, and modern web technologies.",
     achievements: [
-      "Built GeoGuard geofencing system with real-time tracking",
       "Developed official company website for PSH",
-      "Implemented REST APIs and database optimization",
-      "Collaborated with cross-functional teams"
+      "Worked with React and Tailwind CSS",
+      "Gained experience in full-stack development",
+      "Collaborated with development team"
     ],
-    tech: ["React", "React Native", "Django", "PostgreSQL", "REST APIs", "Tailwind CSS"],
-    duration: "1 year"
+    tech: ["React", "Django", "PostgreSQL", "Tailwind CSS"],
+    duration: "1 month"
   }
 ];
 
@@ -137,9 +137,9 @@ export default function ExperienceSection() {
         {/* Experience summary */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in-delay-3">
           {[
-            { label: "Years Experience", value: "2+", icon: "📅" },
+            { label: "Years Experience", value: "1+", icon: "📅" },
             { label: "Companies Worked", value: "2", icon: "🏢" },
-            { label: "Projects Delivered", value: "6+", icon: "🚀" }
+            { label: "Projects Delivered", value: "6", icon: "🚀" }
           ].map((stat, index) => (
             <div key={stat.label} className="text-center p-4 rounded-xl bg-surface border border-border hover:border-accent-a transition-all">
               <div className="text-2xl mb-2">{stat.icon}</div>

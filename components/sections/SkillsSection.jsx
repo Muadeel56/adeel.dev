@@ -3,24 +3,23 @@ import { useState, useEffect } from "react";
 import RobotMascot from "../common/RobotMascot";
 
 const SKILLS = [
-  { name: "React", type: "Framework", level: 90, icon: "⚛️" },
-  { name: "Next.js", type: "Framework", level: 85, icon: "⚡" },
-  { name: "TypeScript", type: "Language", level: 80, icon: "📘" },
-  { name: "JavaScript", type: "Language", level: 95, icon: "🟨" },
-  { name: "Django", type: "Framework", level: 75, icon: "🐍" },
-  { name: "Tailwind CSS", type: "CSS", level: 90, icon: "🎨" },
-  { name: "REST APIs", type: "API", level: 85, icon: "🔗" },
+  { name: "React", type: "Framework", level: 85, icon: "⚛️" },
+  { name: "Next.js", type: "Framework", level: 80, icon: "⚡" },
+  { name: "JavaScript", type: "Language", level: 90, icon: "🟨" },
+  { name: "Django", type: "Framework", level: 70, icon: "🐍" },
+  { name: "Tailwind CSS", type: "CSS", level: 85, icon: "🎨" },
+  { name: "REST APIs", type: "API", level: 75, icon: "🔗" },
   { name: "Git", type: "Tool", level: 80, icon: "📝" },
-  { name: "Figma", type: "Tool", level: 70, icon: "🎨" },
-  { name: "Framer Motion", type: "Animation", level: 75, icon: "✨" },
-  { name: "MUI", type: "UI", level: 80, icon: "🧩" },
-  { name: "Vite", type: "Tool", level: 85, icon: "⚡" },
-  { name: "PostgreSQL", type: "Database", level: 75, icon: "🐘" },
-  { name: "Python", type: "Language", level: 80, icon: "🐍" },
+  { name: "Figma", type: "Tool", level: 65, icon: "🎨" },
+  { name: "Framer Motion", type: "Animation", level: 70, icon: "✨" },
+  { name: "MUI", type: "UI", level: 75, icon: "🧩" },
+  { name: "Vite", type: "Tool", level: 80, icon: "⚡" },
+  { name: "PostgreSQL", type: "Database", level: 70, icon: "🐘" },
+  { name: "Python", type: "Language", level: 75, icon: "🐍" },
 ];
 
 const SKILL_CATEGORIES = [
-  { name: "Frontend", skills: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Framer Motion", "MUI"] },
+  { name: "Frontend", skills: ["React", "Next.js", "JavaScript", "Tailwind CSS", "Framer Motion", "MUI"] },
   { name: "Backend", skills: ["Django", "Python", "PostgreSQL", "REST APIs"] },
   { name: "Tools", skills: ["Git", "Vite", "Figma"] },
 ];
@@ -144,10 +143,10 @@ export default function SkillsSection() {
         {/* Skill Statistics */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 animate-fade-in-delay-3">
           {[
-            { label: "Years Experience", value: "3+", icon: "📅" },
-            { label: "Projects Completed", value: "15+", icon: "🚀" },
-            { label: "Technologies", value: "14", icon: "⚡" },
-            { label: "Happy Clients", value: "8+", icon: "😊" }
+            { label: "Years Experience", value: "1+", icon: "📅" },
+            { label: "Companies Worked", value: "2", icon: "🏢" },
+            { label: "Projects Delivered", value: "6", icon: "🚀" },
+            { label: "Technologies", value: "13", icon: "⚡" }
           ].map((stat, index) => (
             <div key={stat.label} className="text-center p-4 rounded-xl bg-surface border border-border hover:border-accent-a transition-all">
               <div className="text-2xl mb-2">{stat.icon}</div>

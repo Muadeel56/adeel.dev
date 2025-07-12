@@ -18,7 +18,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata = {
   title: "Muhammad Adeel | Frontend & Full Stack Developer",
   description: "Passionate developer specializing in React, Next.js, and modern web technologies. Building beautiful, fast, and user-focused applications.",
-  keywords: ["developer", "portfolio", "next.js", "react", "typescript", "tailwind", "frontend", "full stack", "web development"],
+  keywords: ["developer", "portfolio", "next.js", "react", "javascript", "tailwind", "frontend", "full stack", "web development"],
   authors: [{ name: "Muhammad Adeel" }],
   creator: "Muhammad Adeel",
   publisher: "Muhammad Adeel",
@@ -90,7 +90,7 @@ export default function RootLayout({ children }) {
               "image": "/profile.jpg",
               "description": "Passionate developer specializing in React, Next.js, and modern web technologies.",
               "knowsAbout": [
-                "React", "Next.js", "TypeScript", "JavaScript", "Django", 
+                "React", "Next.js", "JavaScript", "Django", 
                 "Tailwind CSS", "REST APIs", "Git", "Figma", "Framer Motion"
               ],
               "worksFor": {

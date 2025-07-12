@@ -17,12 +17,12 @@ export default function AboutSection() {
       <div className="max-w-3xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-accent-a animate-fade-in">About Me</h2>
         <p className="text-lg md:text-xl text-text-secondary mb-8 animate-fade-in-delay">
-          With a strong foundation in both frontend and backend, I thrive on building solutions that are as elegant as they are effective. I'm quick to learn new tools, love collaborating, and always push for pixel-perfect, accessible design.
+          I'm a passionate developer with a strong foundation in both frontend and backend development. I love learning new technologies and building solutions that are both elegant and effective. I'm always pushing for clean code, pixel-perfect design, and great user experiences.
         </p>
         {/* Animated skill tags with robot footprints */}
         <div className="flex flex-wrap justify-center gap-3 mb-8 animate-fade-in-delay-2">
           {[
-            "React", "Next.js", "TypeScript", "JavaScript", "Django", "Tailwind CSS", "REST APIs", "Git", "Figma", "Framer Motion", "MUI", "Vite"
+            "React", "Next.js", "JavaScript", "Django", "Tailwind CSS", "REST APIs", "Git", "Figma", "Framer Motion", "MUI", "Vite"
           ].map((skill, index) => (
             <div key={skill} className="relative group">
               <span
