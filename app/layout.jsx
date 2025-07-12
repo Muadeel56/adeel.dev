@@ -5,7 +5,6 @@ import PaletteSwitcher from "../components/common/PaletteSwitcher";
 import NavBar from "../components/common/NavBar";
 import ThemeToggle from "../components/common/ThemeToggle";
 import ScrollToTopButton from "../components/common/ScrollToTopButton";
-import LanguageSwitcher from "../components/common/LanguageSwitcher";
 
 // Configure Space Grotesk font for the Nebula Bloom theme
 const spaceGrotesk = Space_Grotesk({
@@ -114,7 +113,6 @@ export default function RootLayout({ children }) {
           <ThemeToggle />
           {children}
           <PaletteSwitcher />
-          <LanguageSwitcher />
           <ScrollToTopButton />
         </ThemeProvider>
       </body>

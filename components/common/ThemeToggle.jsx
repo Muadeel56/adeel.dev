@@ -2,6 +2,7 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { FaSun, FaMoon, FaRobot } from 'react-icons/fa';
 
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -30,16 +31,20 @@ export default function ThemeToggle() {
     <>
       <button
         onClick={toggleTheme}
-        className="fixed bottom-24 left-6 z-50 p-3 rounded-xl bg-surface/80 border border-border shadow-lg backdrop-blur-md hover:bg-accent-faded transition-all group"
+        className="fixed bottom-24 left-6 z-50 p-3 rounded-xl bg-surface/80 border border-border shadow-lg backdrop-blur-md hover:bg-accent-faded transition-all group hover:scale-105"
         aria-label="Toggle dark/light theme"
       >
-        <span className="text-2xl transition-transform duration-300 group-hover:scale-110">
-          {theme === "dark" ? "☀️" : "🌙"}
+        <span className="text-xl transition-transform duration-300 group-hover:scale-110">
+          {theme === "dark" ? (
+            <FaSun className="text-yellow-500" />
+          ) : (
+            <FaMoon className="text-blue-600" />
+          )}
         </span>
       </button>
       {showEasterEgg && (
         <div className="fixed bottom-40 left-6 z-[999] bg-accent-a text-white px-6 py-4 rounded-2xl shadow-lg border-2 border-accent-b animate-fade-in flex items-center gap-3">
-          <span className="text-3xl animate-robot-dance">🤖</span>
+          <FaRobot className="text-2xl animate-robot-dance" />
           <span className="font-bold text-lg">Robot says: You found the secret theme dance! 🎉</span>
         </div>
       )}

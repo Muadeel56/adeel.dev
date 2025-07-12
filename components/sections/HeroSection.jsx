@@ -2,13 +2,21 @@
 import { useState } from "react";
 import Button from "../common/Button";
 import ResumeModal from "./ResumeModal";
+import { 
+  FaGithub, 
+  FaLinkedin, 
+  FaEnvelope, 
+  FaGlobe,
+  FaTools
+} from 'react-icons/fa';
+import { BiCodeAlt } from 'react-icons/bi';
 
-// Social links for the hero section
+// Social links for the hero section with real icons
 const SOCIALS = [
-  { name: "GitHub", icon: "🐙", link: "https://github.com/Muadeel56" },
-  { name: "LinkedIn", icon: "🔗", link: "https://www.linkedin.com/in/muhammad-adeel-b7224a319/" },
-  { name: "Email", icon: "✉️", link: "mailto:muadeel69@gmail.com" },
-  { name: "Portfolio", icon: "🌐", link: "https://adeel-portfolio.pages.dev/" },
+  { name: "GitHub", icon: <FaGithub className="text-gray-800 dark:text-white" />, link: "https://github.com/Muadeel56" },
+  { name: "LinkedIn", icon: <FaLinkedin className="text-blue-600" />, link: "https://www.linkedin.com/in/muhammad-adeel-b7224a319/" },
+  { name: "Email", icon: <FaEnvelope className="text-red-500" />, link: "mailto:muadeel69@gmail.com" },
+  { name: "Portfolio", icon: <FaGlobe className="text-green-600" />, link: "https://adeel-portfolio.pages.dev/" },
 ];
 
 export default function HeroSection() {
@@ -26,7 +34,7 @@ export default function HeroSection() {
         <img 
           src="/profile.jpg" 
           alt="Muhammad Adeel profile" 
-          className="w-28 h-28 md:w-36 md:h-36 rounded-full border-4 border-accent-a shadow-lg mb-4 object-cover bg-surface/80" 
+          className="w-28 h-28 md:w-36 md:h-36 rounded-full border-4 border-accent-a shadow-lg mb-4 object-cover bg-surface/80 hover:scale-105 transition-transform duration-300" 
           style={{ objectPosition: 'center' }}
         />
         {/* Gradient headline */}
@@ -49,24 +57,26 @@ export default function HeroSection() {
               key={s.name}
               href={s.link}
               target="_blank"
-              rel="noopener"
-              className="text-2xl md:text-3xl p-2 rounded-full bg-accent-faded text-accent-a hover:bg-accent-a hover:text-white transition-all shadow robot-hover"
+              rel="noopener noreferrer"
+              className="text-2xl md:text-3xl p-3 rounded-full bg-accent-faded text-accent-a hover:bg-accent-a hover:text-white transition-all shadow-lg hover:shadow-xl hover:scale-110 robot-hover"
               aria-label={s.name}
             >
               {s.icon}
             </a>
           ))}
         </div>
-        {/* Now widget */}
+        {/* Current work widget */}
         <div className="mb-8 animate-fade-in-delay-2">
-          <span className="inline-block px-4 py-2 rounded-full bg-accent-faded text-accent-b font-semibold text-base shadow">
-            <span className="mr-2">🛠️</span> Currently working on: <b>Attendance Portal (QTO House)</b>
+          <span className="inline-flex items-center px-4 py-2 rounded-full bg-accent-faded text-accent-b font-semibold text-base shadow-lg">
+            <FaTools className="mr-2 text-accent-a" />
+            Currently working on: <b className="ml-1">Attendance Portal (QTO House)</b>
           </span>
         </div>
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-delay-2">
           <Button variant="primary" size="lg" onClick={() => document.getElementById('projects').scrollIntoView({behavior:'smooth'})}>
             <span className="flex items-center gap-2">
+              <BiCodeAlt className="text-lg" />
               View My Work
               <span className="animate-bounce-x">→</span>
             </span>
@@ -81,7 +91,10 @@ export default function HeroSection() {
         <ResumeModal open={modalOpen} setOpen={setModalOpen} />
         {/* Live GitHub Stats */}
         <div className="mt-10 flex flex-col items-center w-full animate-fade-in-delay-3">
-          <h3 className="text-xl font-bold text-accent-a mb-2">GitHub Stats</h3>
+          <h3 className="text-xl font-bold text-accent-a mb-2 flex items-center gap-2">
+            <FaGithub className="text-lg" />
+            GitHub Stats
+          </h3>
           <img
             src="https://github-readme-stats.vercel.app/api?username=Muadeel56&show_icons=true&theme=transparent&hide_border=true&title_color=8B5CF6&icon_color=10B981&text_color=64748B"
             alt="GitHub Stats"

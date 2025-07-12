@@ -2,33 +2,42 @@
 import { useState } from "react";
 import RobotMascot from "../common/RobotMascot";
 import emailjs from "emailjs-com";
+import { 
+  FaEnvelope, 
+  FaLinkedin, 
+  FaGithub, 
+  FaGlobe,
+  FaUser,
+  FaDownload
+} from 'react-icons/fa';
+import { BiMessageRoundedDetail } from 'react-icons/bi';
 
 const SOCIALS = [
-  { name: "Email", icon: "✉️", link: "mailto:muadeel69@gmail.com" },
-  { name: "LinkedIn", icon: "🔗", link: "https://www.linkedin.com/in/muhammad-adeel-b7224a319/" },
-  { name: "GitHub", icon: "🐙", link: "https://github.com/Muadeel56" },
-  { name: "Portfolio", icon: "🌐", link: "https://adeel-portfolio.pages.dev/" },
+  { name: "Email", icon: <FaEnvelope className="text-red-500" />, link: "mailto:muadeel69@gmail.com" },
+  { name: "LinkedIn", icon: <FaLinkedin className="text-blue-600" />, link: "https://www.linkedin.com/in/muhammad-adeel-b7224a319/" },
+  { name: "GitHub", icon: <FaGithub className="text-gray-800 dark:text-white" />, link: "https://github.com/Muadeel56" },
+  { name: "Portfolio", icon: <FaGlobe className="text-green-600" />, link: "https://adeel-portfolio.pages.dev/" },
 ];
 
 const CONTACT_METHODS = [
   {
     name: "Email",
     value: "muadeel69@gmail.com",
-    icon: "✉️",
+    icon: <FaEnvelope className="text-red-500" />,
     description: "Send me an email",
     action: "mailto:muadeel69@gmail.com"
   },
   {
     name: "LinkedIn",
     value: "muhammad-adeel-b7224a319",
-    icon: "🔗",
+    icon: <FaLinkedin className="text-blue-600" />,
     description: "Connect on LinkedIn",
     action: "https://www.linkedin.com/in/muhammad-adeel-b7224a319/"
   },
   {
     name: "GitHub",
     value: "Muadeel56",
-    icon: "🐙",
+    icon: <FaGithub className="text-gray-800 dark:text-white" />,
     description: "Check out my code",
     action: "https://github.com/Muadeel56"
   }
@@ -92,9 +101,15 @@ export default function ContactSection() {
       </div>
       
       {/* Floating contact icons */}
-      <div className="absolute left-10 top-20 text-2xl animate-bounce opacity-30">📧</div>
-      <div className="absolute right-20 top-40 text-xl animate-bounce-delay opacity-30">💬</div>
-      <div className="absolute left-20 bottom-20 text-lg animate-bounce opacity-30">📱</div>
+      <div className="absolute left-10 top-20 text-2xl animate-bounce opacity-30">
+        <FaEnvelope className="text-accent-a" />
+      </div>
+      <div className="absolute right-20 top-40 text-xl animate-bounce-delay opacity-30">
+        <BiMessageRoundedDetail className="text-accent-b" />
+      </div>
+      <div className="absolute left-20 bottom-20 text-lg animate-bounce opacity-30">
+        <FaUser className="text-accent-a" />
+      </div>
       
       <div className="max-w-4xl mx-auto w-full">
         <h2 className="text-3xl md:text-4xl font-bold mb-10 text-accent-a text-center animate-fade-in">Get In Touch</h2>
@@ -117,8 +132,8 @@ export default function ContactSection() {
                   key={method.name}
                   href={method.action}
                   target="_blank"
-                  rel="noopener"
-                  className="flex items-center gap-4 p-4 rounded-xl bg-bg border border-border hover:border-accent-a transition-all group"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 p-4 rounded-xl bg-bg border border-border hover:border-accent-a transition-all group hover:shadow-lg"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <span className="text-2xl group-hover:scale-110 transition-transform">{method.icon}</span>
@@ -138,7 +153,7 @@ export default function ContactSection() {
                 download
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-accent-b to-accent-a text-white font-semibold shadow hover:scale-105 transition-all"
               >
-                <span>📇</span>
+                <FaDownload className="text-lg" />
                 Download vCard
               </a>
             </div>
@@ -202,7 +217,7 @@ export default function ContactSection() {
                   className={`w-full px-4 py-3 rounded-lg border-2 transition-all focus:outline-none focus:ring-2 focus:ring-accent-a ${
                     errors.message ? 'border-red-500' : 'border-border focus:border-accent-a'
                   } bg-bg text-text-primary resize-none`}
-                  placeholder="Tell me about your project or just say hello!"
+                  placeholder="Your message..."
                   aria-describedby={errors.message ? "message-error" : undefined}
                 />
                 {errors.message && (
@@ -213,23 +228,29 @@ export default function ContactSection() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full px-6 py-3 rounded-xl bg-gradient-to-r from-accent-a to-accent-b text-white font-semibold shadow hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                aria-describedby={sent ? "success-message" : undefined}
+                className={`w-full py-3 px-6 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 ${
+                  loading 
+                    ? 'bg-gray-400 cursor-not-allowed' 
+                    : 'bg-gradient-to-r from-accent-a to-accent-b text-white hover:scale-105 hover:shadow-lg'
+                }`}
               >
                 {loading ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <>
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                     Sending...
-                  </span>
+                  </>
                 ) : (
-                  "Send Message"
+                  <>
+                    <BiMessageRoundedDetail className="text-lg" />
+                    Send Message
+                  </>
                 )}
               </button>
               
               {sent && (
-                <p id="success-message" className="text-green-500 text-sm text-center animate-fade-in">
+                <div className="p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg animate-fade-in">
                   ✅ Message sent successfully! I'll get back to you soon.
-                </p>
+                </div>
               )}
             </form>
           </div>

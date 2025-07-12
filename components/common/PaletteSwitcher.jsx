@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from "react";
+import { FaPalette } from 'react-icons/fa';
 
 const PALETTES = [
   {
@@ -64,13 +65,13 @@ export default function PaletteSwitcher() {
       {/* Floating button */}
       <button
         onClick={() => setOpen(o => !o)}
-        className="w-12 h-12 rounded-full bg-surface border border-border shadow-lg flex items-center justify-center hover:bg-accent-faded transition-all group"
+        className="w-12 h-12 rounded-full bg-surface border border-border shadow-lg flex items-center justify-center hover:bg-accent-faded transition-all group hover:scale-105"
         aria-label="Switch color palette"
       >
         <span className="w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all"
           style={{ background: 'hsl(var(--accent-a))', borderColor: 'hsl(var(--accent-b))' }}
         />
-        <span className="absolute -top-2 -right-2 text-xs bg-accent-b text-white px-1.5 py-0.5 rounded-full shadow-md group-hover:scale-110 transition-transform">🎨</span>
+        <FaPalette className="absolute -top-2 -right-2 text-xs text-accent-b group-hover:scale-110 transition-transform" />
       </button>
     </div>
   );

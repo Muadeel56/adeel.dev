@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from "react";
+import { FaCode } from 'react-icons/fa';
 
 const NAV_LINKS = [
   { label: "Home", href: "#home" },
@@ -14,10 +15,14 @@ const NAV_LINKS = [
 export default function NavBar() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("#home");
+  const [scrolled, setScrolled] = useState(false);
 
   // Highlight active section on scroll
   useEffect(() => {
     const handleScroll = () => {
+      // Check if scrolled
+      setScrolled(window.scrollY > 20);
+      
       let found = "#home";
       for (const link of NAV_LINKS) {
         const el = document.querySelector(link.href);
@@ -52,26 +57,31 @@ export default function NavBar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-surface/80 backdrop-blur-md border-b border-border">
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      scrolled 
+        ? 'bg-surface/95 backdrop-blur-md border-b border-border shadow-lg' 
+        : 'bg-surface/80 backdrop-blur-md border-b border-border/50'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
             <a 
               href="#home" 
-              className="text-xl font-bold text-accent-a hover:text-accent-b transition-colors"
+              className="flex items-center gap-2 text-xl font-bold text-accent-a hover:text-accent-b transition-colors group"
               onClick={() => handleNav("#home")}
               onKeyDown={(e) => handleKeyDown(e, "#home")}
               tabIndex={0}
               aria-label="Go to home page"
             >
-              Adeel.dev
+              <FaCode className="text-accent-b group-hover:text-accent-a transition-colors" />
+              <span>Adeel.dev</span>
             </a>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
+            <div className="ml-10 flex items-baseline space-x-1">
               {NAV_LINKS.map((link) => (
                 <a
                   key={link.href}
@@ -81,9 +91,9 @@ export default function NavBar() {
                     handleNav(link.href);
                   }}
                   onKeyDown={(e) => handleKeyDown(e, link.href)}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-all relative group ${
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all relative group ${
                     active === link.href
-                      ? 'text-accent-a bg-accent-faded'
+                      ? 'text-accent-a bg-accent-faded shadow-sm'
                       : 'text-text-primary hover:text-accent-a hover:bg-accent-faded'
                   }`}
                   tabIndex={0}
@@ -95,6 +105,8 @@ export default function NavBar() {
                   {active === link.href && (
                     <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent-a rounded-full" />
                   )}
+                  {/* Hover effect */}
+                  <span className="absolute inset-0 rounded-lg bg-accent-a/0 group-hover:bg-accent-a/5 transition-colors" />
                 </a>
               ))}
             </div>
@@ -104,7 +116,7 @@ export default function NavBar() {
           <div className="md:hidden">
             <button
               onClick={() => setOpen(!open)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-text-primary hover:text-accent-a hover:bg-accent-faded focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent-a transition-all"
+              className="inline-flex items-center justify-center p-2 rounded-lg text-text-primary hover:text-accent-a hover:bg-accent-faded focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent-a transition-all"
               aria-expanded={open}
               aria-controls="mobile-menu"
               aria-label={open ? "Close navigation menu" : "Open navigation menu"}
@@ -139,7 +151,7 @@ export default function NavBar() {
 
       {/* Mobile menu */}
       <div 
-        className={`${open ? 'block' : 'hidden'} md:hidden bg-surface border-t border-border`}
+        className={`${open ? 'block' : 'hidden'} md:hidden bg-surface border-t border-border shadow-lg`}
         id="mobile-menu"
         role="menu"
         aria-orientation="vertical"
@@ -155,9 +167,9 @@ export default function NavBar() {
                 handleNav(link.href);
               }}
               onKeyDown={(e) => handleKeyDown(e, link.href)}
-              className={`block px-3 py-2 rounded-md text-base font-medium transition-all ${
+              className={`block px-3 py-2 rounded-lg text-base font-medium transition-all ${
                 active === link.href
-                  ? 'text-accent-a bg-accent-faded'
+                  ? 'text-accent-a bg-accent-faded shadow-sm'
                   : 'text-text-primary hover:text-accent-a hover:bg-accent-faded'
               }`}
               role="menuitem"
